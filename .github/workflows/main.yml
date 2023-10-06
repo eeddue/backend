@@ -1,0 +1,36 @@
+name: CI
+on:
+  push:
+    branches: [prod]
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote connection
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.CICD2_HOST }}
+          username: ${{ secrets.CICD2_USERNAME }}
+          key: ${{ secrets.CICD2_SECRET }}
+          port: ${{ secrets.PORT }}
+          script: |
+            # rm existing folder
+            cd /apps/github-workflows
+            sudo rm -rf <repo name>
+            # create a new folder
+            sudo mkdir <new dir same as repo name>
+            # give permissions on the folder
+            sudo chown cicd2:cicd2 <repo name>
+            # clone the master branch from  the github
+            cd <repo name>
+            git clone <repo url>
+            sudo cp /apps/dockerApps/<repo name>/.env .
+            # bring down existing docker image
+            docker stop pharmapoint
+            # remove the image .
+            docker rm -f pharmapoint
+            # create the image
+            docker build -t pharmapoint:latest .
+            #bring up the image
+            docker run -p 8900:8000 --name=pharmapoint -d pharmapoint:latest

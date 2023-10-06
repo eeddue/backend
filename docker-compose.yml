@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  database:
+    image: postgres:13
+    container_name: pharmapoint_database
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-pharmapoint_test}
+      POSTGRES_USER: ${POSTGRES_USER:-pharmapoint}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1234}
+      TZ: "Africa/Nairobi"
+
+  app:
+    build: .
+    depends_on:
+      - database
+    container_name: pharmapoint_app
+    ports:
+      - 8000:8000
+    environment:
+      SECRET_KEY: ${SECRET_KEY:-django-insecure-gl4urfb)f(w=sikb-rhxfwbzly4&jyp$%d=ao=22@d6(*qj567}
+      DEBUG: ${DEBUG:-True}
+      EMAIL_HOST_USER: ${EMAIL_HOST_USER:-pharmapoint888@gmail.com}
+      EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD:-jnqfegmjtwqygaaa}
+      # AWS
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-AKIARRPV4AFUU4NVEZ7P}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY-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}
+      AWS_STORAGE_BUCKET_NAME: ${AWS_STORAGE_BUCKET_NAME-pharmapoint-prod-bucket}
+      AWS_S3_SIGNATURE_NAME: ${AWS_S3_SIGNATURE_NAME-s3v4}
+      AWS_S3_REGION_NAME: ${AWS_S3_REGION_NAME-eu-north-1}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Reset Code</title>
+    <style>
+      /*  custom email styles */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+      }
+      .header {
+        background-color: #ce2c4e;
+        color: #fff;
+        text-align: center;
+        padding: 20px 0;
+      }
+      .reset-code {
+        font-size: 24px;
+        color: #ce2c4e;
+        text-align: center;
+      }
+      .content {
+        padding: 20px;
+      }
+      .footer {
+        background-color: #ce2c4e;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Password Reset Code</h1>
+      </div>
+      <div class="reset-code">
+        <p><strong>{{ code }}</strong></p>
+      </div>
+      <div class="content">
+        <p>Dear User,</p>
+        <p>
+          Your password reset code is shown above. Please use this code to reset
+          your password within the next 30 minutes.
+        </p>
+        <p>
+          If you didn't request a password reset, you can ignore this email.
+        </p>
+      </div>
+      <div class="footer">
+        <p>&copy; 2023 PharmaPoint</p>
+      </div>
+    </div>
+  </body>
+</html>
